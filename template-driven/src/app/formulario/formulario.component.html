@@ -138,6 +138,31 @@
           </div>
 
           <div class="col-md-2 mb-3">
+            <label for="cep">CEP</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cep"
+              placeholder="87.300-000"
+              name="cep"
+              [(ngModel)]="usuario.cep"
+              required
+              #cep="ngModel"
+              (blur)="consultaCEP($event.target, formUser)"
+            />
+            <!-- <div
+              *ngIf="!cep.valid && cep.touched"
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>CEP é obrigatório!</p>
+            </div> -->
+            <div *ngIf="cepErro" class="alert alert-danger" role="alert">
+              <p>{{ cepErro }}</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
             <label for="bairro">Bairro</label>
             <input
               type="text"
@@ -158,7 +183,7 @@
             </div>
           </div>
 
-          <div class="col-md-2 mb-3">
+          <div class="col-md-3 mb-3">
             <label for="cidade">Cidade</label>
             <input
               type="text"
@@ -179,7 +204,7 @@
             </div>
           </div>
 
-          <div class="col-md-2 mb-3">
+          <div class="col-md-3 mb-3">
             <label for="estado">Estado</label>
             <input
               type="text"
@@ -200,6 +225,17 @@
             </div>
           </div>
         </div>
+        <div *ngIf="agarda" class="spinner-border m-5" role="status">
+          <span class="sr-only"></span>
+        </div>
+        <!-- <div class="col-md-3 mb-3 d-flex align-items-center">
+          <strong>Loading...</strong>
+          <div
+            class="spinner-border ms-auto"
+            role="status"
+            aria-hidden="true"
+          ></div>
+        </div> -->
       </div>
 
       <hr />
@@ -218,5 +254,5 @@
     </div>
   </form>
 
-  <app-form-debug [formDebug]="formUser"></app-form-debug>
+  <!-- <app-form-debug [formDebug]="formUser"></app-form-debug> -->
 </div>
