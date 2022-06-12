@@ -1,4 +1,4 @@
-# formularios
+# Tipos de formulários
 Este projeto foi gerado com [Angular CLI](https://angular.io/cli) version 13.3.3.
  
 ## Formulário de cadastro com requisição a API VIACEP
