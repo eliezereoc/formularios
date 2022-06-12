@@ -7,9 +7,16 @@ Este projeto foi gerado com [Angular CLI](https://angular.io/cli) version 13.3.3
 
 > Dependencies
 
-    -Angular material  
+    -Angular material: 
+      ng add @angular/material
+      
     -Flex-layout
+      npm i @angular/flex-layout
+      
     -Bootstrap
+      npm i bootstrap
+      
+Lembre-se de adicionar as dependecias no arquivo angular.json
 
 Install the dependencies...
 
