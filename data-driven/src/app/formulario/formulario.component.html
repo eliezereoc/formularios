@@ -1,0 +1,267 @@
+<div class="template">
+  <form class="form" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <div class="container mat-elevation-z2">
+      <div class="div_dados-usuario">
+        <div class="row">
+          <div class="col-md-7 mb-3">
+            <label for="nome">Nome Completo</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nome"
+              placeholder="Nome"
+              name="nome"
+              formControlName="nome"
+              required
+            />
+            <div
+              *ngIf="
+                !formulario.controls.nome.valid &&
+                formulario.controls.nome.touched
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>Nome é obrigatório!</p>
+            </div>
+          </div>
+          <div class="col-md-5 mb-3">
+            <label for="email">E-mail</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                placeholder="emal@emal.com"
+                aria-describedby="email"
+                name="email"
+                formControlName="email"
+                required
+              />
+            </div>
+            <div
+              *ngIf="
+                !formulario.controls.email.valid &&
+                formulario.controls.email.touched
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>E-mail é obrigatório!</p>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="telefone">Telefone</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="telefone"
+              placeholder="(XX) X XXXX-XXXX"
+              name="telefone"
+              formControlName="telefone"
+              required
+            />
+            <div
+              *ngIf="
+                !formulario.controls.telefone.valid &&
+                formulario.controls.telefone.touched
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>Telefone é obrigatório!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ngModelGroup="endereco" -->
+      <div class="div_endereco-usuario">
+        <h3>Endereço</h3>
+        <hr />
+        <div class="row">
+          <div class="col-md-7 mb-3">
+            <label for="logradouro">Logradouro</label>
+            <input
+              type="text"
+              class="form-control"
+              id="logradouro"
+              placeholder="Rua, Avenida"
+              name="logradouro"
+              formControlName="logradouro"
+            />
+            <div
+              *ngIf="
+                !formulario.controls.logradouro.valid &&
+                formulario.controls.logradouro.touched
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>logradouro é obrigatório!</p>
+            </div>
+          </div>
+
+          <div class="col-md-2 mb-3">
+            <label for="numero">Numero</label>
+            <input
+              type="text"
+              class="form-control"
+              id="numero"
+              placeholder="Ex. 1234 - S/N"
+              name="numero"
+              formControlName="numero"
+              required
+            />
+            <div
+              *ngIf="
+                !formulario.controls.numero.valid &&
+                formulario.controls.numero.touched
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>Numero é obrigatório!</p>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3">
+            <label for="complemento">Complemento</label>
+            <input
+              type="text"
+              class="form-control"
+              id="complemento"
+              placeholder="APTO 105"
+              name="complemento"
+              formControlName="complemento"
+              required
+            />
+            <div
+              *ngIf="
+                !formulario.controls.complemento.valid &&
+                formulario.controls.complemento.touched
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>Complemento é obrigatório!</p>
+            </div>
+          </div>
+
+          <div class="col-md-2 mb-3">
+            <label for="cep">CEP</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cep"
+              placeholder="87.300-000"
+              name="cep"
+              formControlName="cep"
+              required
+              (blur)="consultaCEP($event.target, formulario)"
+            />
+
+            <div *ngIf="cepErro" class="alert alert-danger" role="alert">
+              <p>{{ cepErro }}</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label for="bairro">Bairro</label>
+            <input
+              type="text"
+              class="form-control"
+              id="bairro"
+              placeholder="Jardim São Paulo"
+              name="bairro"
+              formControlName="bairro"
+              required
+            />
+            <div
+              *ngIf="
+                !formulario.controls.bairro.valid &&
+                formulario.controls.bairro.touched
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>Bairro é obrigatório!</p>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3">
+            <label for="cidade">Cidade</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cidade"
+              placeholder="São Paulo"
+              name="cidade"
+              formControlName="cidade"
+              required
+            />
+            <div
+              *ngIf="
+                !formulario.controls.cidade.valid &&
+                formulario.controls.cidade.touched
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>Cidade é obrigatório!</p>
+            </div>
+          </div>
+
+          <div class="col-md-3 mb-3">
+            <label for="estado">Estado</label>
+            <input
+              type="text"
+              class="form-control"
+              id="estado"
+              placeholder="São Paulo"
+              name="estado"
+              formControlName="estado"
+              required
+            />
+            <div
+              *ngIf="
+                !formulario.controls.estado.valid &&
+                formulario.controls.estado.touched
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>Estado é obrigatório!</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="spinner-border m-5" role="status">
+          <span class="sr-only"></span>
+        </div> -->
+        <!-- <div class="col-md-3 mb-3 d-flex align-items-center">
+            <strong>Loading...</strong>
+            <div
+              class="spinner-border ms-auto"
+              role="status"
+              aria-hidden="true"
+            ></div>
+          </div> -->
+      </div>
+
+      <hr />
+
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="formulario.invalid"
+        >
+          Gravar
+        </button>
+        <button type="button" class="btn btn-warning">Cancela</button>
+        <button type="reset" class="btn btn-secondary">Limpar</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- <app-form-debug [formDebug]="formulario"></app-form-debug> -->
+</div>

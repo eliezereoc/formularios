@@ -1,0 +1,51 @@
+<div class="container">
+  <form method="post" (ngSubmit)="submit()" [formGroup]="formulario">
+    <div class="form-group">
+      <label for="nome">Nome *</label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        class="form-control"
+        placeholder="Nome"
+        formControlName="nome"
+      />
+      <!-- && formulario.nome.touched -->
+      <!-- formulario.controls.nome.errors -->
+      <div
+        *ngIf="formulario.controls.nome.touched"
+        class="alert alert-danger"
+        role="alert"
+      >
+        <p>Nome é obrigatório!</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-mail *</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="form-control"
+        placeholder="E-mail"
+        formControlName="email"
+      />
+      <div
+        *ngIf="formulario.controls.email.touched"
+        class="alert alert-danger"
+        role="alert"
+      >
+        <p>E-mail é obrigatório!</p>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="formulario.invalid"
+    >
+      Salvar
+    </button>
+  </form>
+</div>
