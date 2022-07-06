@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { distinctUntilChanged, EMPTY, switchMap, tap } from 'rxjs';
 import { FormService } from './service/form.service';
 
 @Component({
@@ -18,35 +19,41 @@ export class FormularioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.formulario = this.formBuilder.group({
-      nome: [
-        null,
-        [Validators.required, Validators.min(3), Validators.max(100)],
-      ],
-      email: [
-        null,
-        [
-          Validators.required,
-          Validators.email,
-          Validators.maxLength(250),
-          Validators.minLength(5),
-          Validators.pattern(/.+@.+\..+/),
-        ],
-      ],
-      telefone: [null, Validators.required],
+    this.montaFromulario();
 
-      logradouro: [null, Validators.required],
-      numero: [null, Validators.required],
-      complemento: [null, Validators.required],
-      cep: [null, Validators.required],
-      bairro: [null, Validators.required],
-      cidade: [null, Validators.required],
-      estado: [null, Validators.required],
-    });
+    /*****************************************/
+    // Mostra o valor de CEP de forma reativa
+    /*****************************************/
+    this.formulario
+      .get('cep')
+      .statusChanges.pipe(
+        distinctUntilChanged(),
+        tap((value: any) => console.log('Status CEP: ', value)),
+        switchMap((status) =>
+          status === 'VALID'
+            ? this.formService.getCep(this.formulario.get('cep').value)
+            : EMPTY
+        )
+      )
+      .subscribe((endereco: any) =>
+        endereco ? this.populaFormsEndereco(endereco) : {}
+      );
+
+    /*****************************************/
+    // Mostra o valor de CEP de forma reativa
+    /*****************************************/
+
+    /*this.formulario
+      .get('cep')
+      .valueChanges.subscribe((value: any) =>
+        console.log('valor CEP: ', value)
+      );*/
   }
 
   consultaCEP(cep: any, formulario: any) {
     cep = cep.value.replace(/\D/g, '');
+
+    console.log(cep);
 
     if (cep != '') {
       let validaCep = /^[0-9]{8}$/;
@@ -110,5 +117,33 @@ export class FormularioComponent implements OnInit {
       });*/
     }
     // console.log(this.formulario);
+  }
+
+  montaFromulario() {
+    this.formulario = this.formBuilder.group({
+      nome: [
+        null,
+        [Validators.required, Validators.min(3), Validators.max(100)],
+      ],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(250),
+          Validators.minLength(5),
+          Validators.pattern(/.+@.+\..+/),
+        ],
+      ],
+      telefone: [null, Validators.required],
+
+      logradouro: [null, Validators.required],
+      numero: [null, Validators.required],
+      complemento: [null, Validators.required],
+      cep: [null, [Validators.required, Validators.pattern(/^[0-9]{8}$/)]],
+      bairro: [null, Validators.required],
+      cidade: [null, Validators.required],
+      estado: [null, Validators.required],
+    });
   }
 }

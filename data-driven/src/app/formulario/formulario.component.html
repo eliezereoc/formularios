@@ -157,9 +157,9 @@
               name="cep"
               formControlName="cep"
               required
-              (blur)="consultaCEP($event.target, formulario)"
             />
-
+            <!-- Para buscar o cep quando perder o foco -->
+            <!-- (blur)="consultaCEP($event.target, formulario)" -->
             <div *ngIf="cepErro" class="alert alert-danger" role="alert">
               <p>{{ cepErro }}</p>
             </div>
