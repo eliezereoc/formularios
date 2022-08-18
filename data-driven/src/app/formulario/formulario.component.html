@@ -249,6 +249,44 @@
 
       <hr />
 
+      <!-- <div class="col-md-3">
+        <label for="frameworks">Frameworks</label>
+        <div id="frameworks" class="row">
+          <div class="checkbox">
+            <label for="" class="checkbox-inline">
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                formControlName="frameworks"
+              />
+            </label>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="col-md-3" id="frameworks">
+        <div
+          class="form-check"
+          formArrayName="frameworks"
+          *ngFor="
+            let item of formulario.get('frameworks').controls;
+            let i = index
+          "
+        >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [formControlName]="i"
+          />
+          <label class="form-check-label" for="frameworks">
+            {{ frameworks[i] }}
+          </label>
+        </div>
+      </div>
+
+      <hr />
+
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <button
           type="submit"
@@ -263,5 +301,5 @@
     </div>
   </form>
 
-  <!-- <app-form-debug [formDebug]="formulario"></app-form-debug> -->
+  <app-form-debug [formDebug]="formulario"></app-form-debug>
 </div>
