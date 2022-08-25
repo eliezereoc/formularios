@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { distinctUntilChanged, EMPTY, switchMap, tap } from 'rxjs';
 import { FormService } from './service/form.service';
 
@@ -12,6 +17,8 @@ export class FormularioComponent implements OnInit {
   formulario: FormGroup | any;
   cepErro: string = '';
   agarda: boolean = false;
+
+  frameworks = ['Angular', 'React', 'Vue', 'Sencha'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -144,6 +151,12 @@ export class FormularioComponent implements OnInit {
       bairro: [null, Validators.required],
       cidade: [null, Validators.required],
       estado: [null, Validators.required],
+      frameworks: this.buildFrameworks(),
     });
+  }
+
+  buildFrameworks() {
+    const values = this.frameworks.map((v) => new FormControl(false));
+    return this.formBuilder.array(values);
   }
 }
