@@ -111,29 +111,40 @@ export class FormularioComponent implements OnInit {
     });
   }
 
+  requiredMinCheckBox(min = 1) {}
+
   onSubmit() {
-    if (this.formulario.valid) {
-      console.log('Formulario valido!!!');
-    } else {
-      console.log('Formulario invalido!!!');
-      /*Object.keys(this.formulario.controls).forEach((campo) => {
+    // if (this.formulario.valid) {
+    // console.log('Formulario valido!!!');
+    // } else {
+    // console.log('Formulario invalido!!!');
+    /*Object.keys(this.formulario.controls).forEach((campo) => {
         console.log(campo);
         const controle = this.formulario.get(campo);
         controle.markAsDirty();
         // controle.markAsTouched();
       });*/
-    }
+    // }
+    let valueSubmit = Object.assign({}, this.formulario.value);
+    valueSubmit = Object.assign(valueSubmit, {
+      frameworks: valueSubmit.frameworks
+        .map((valor: any, index: number) =>
+          valor ? this.frameworks[index] : null
+        )
+        .filter((valor: any) => valor !== null),
+    });
+    console.log(valueSubmit);
     // console.log(this.formulario);
   }
 
   montaFromulario() {
     this.formulario = this.formBuilder.group({
       nome: [
-        null,
+        'João da Silva',
         [Validators.required, Validators.min(3), Validators.max(100)],
       ],
       email: [
-        null,
+        'joao@joao.com.br',
         [
           Validators.required,
           Validators.email,
@@ -142,11 +153,11 @@ export class FormularioComponent implements OnInit {
           Validators.pattern(/.+@.+\..+/),
         ],
       ],
-      telefone: [null, Validators.required],
+      telefone: ['44999999999', Validators.required],
 
       logradouro: [null, Validators.required],
-      numero: [null, Validators.required],
-      complemento: [null, Validators.required],
+      numero: ['400', Validators.required],
+      complemento: ['Casa', Validators.required],
       cep: [null, [Validators.required, Validators.pattern(/^[0-9]{8}$/)]],
       bairro: [null, Validators.required],
       cidade: [null, Validators.required],
